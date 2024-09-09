@@ -1,0 +1,1819 @@
+:root {
+    --bg-color: #f0f0f0;
+    --calc-bg: #ffffff;
+    --key-bg: #ffffff;
+    --key-hover: #e6e6e6;
+    --key-active: #d4d4d4;
+    --operator-bg: #f9f9f9;
+    --equals-bg: #0078d7;
+    --equals-hover: #006abc;
+    --text-color: #000000;
+    --history-color: #666666;
+    --menu-bg: #f9f9f9;
+    --menu-hover: #e6e6e6;
+    --menu-active: #d4d4d4;
+
+    --sb-track-color: #000000;
+    --sb-thumb-color: #5cf5ca;
+    --sb-size: 6px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: var(--bg-color);
+    transition: background-color 0.3s ease;
+    scrollbar-width: 2px !important;
+    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+}
+
+.calculator {
+    height: 465px;
+    max-height: 100%;
+    width: 320px;
+    max-width: 100%;
+    background-color: var(--calc-bg);
+    border-radius: 6px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: width 0.3s ease;
+}
+
+.calculator-sidebar {
+    gap: 10px;
+    background-color: var(--calc-bg);
+    width: 320px;
+    max-width: 100%;
+    height: 465px;
+    max-height: 100%;
+    border-radius: 6px 0 0 6px;
+    display: none;
+}
+
+.calculator[data-type="scientific"] {
+    width: 480px;
+    height: 100%;
+}
+
+/* Graphic */
+
+/* Modal stilini ekleyelim */
+.modal {
+    display: none;
+    /* Başlangıçta gizli */
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Arka planı karart */
+    position: fixed;
+    justify-content: center;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    padding:50px;
+}
+
+
+.modal-content {
+    background-color: #fefefe;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    height: 100%;
+    max-width: 500px;
+    /* Maksimum genişlik */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.modal-content h3 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select,
+.form-group button {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-group input[type="range"] {
+    padding: 0;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    box-shadow: 0 4px #999;
+}
+
+.btn:hover {
+    background-color: #0069d9;
+}
+
+.btn:active {
+    background-color: #0069d9;
+    box-shadow: 0 2px #666;
+    transform: translateY(2px);
+}
+
+.graphic-calculator {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+#graphContainer {
+    position: relative;
+}
+
+#graphCanvas {
+    border: 1px solid rgb(255, 255, 255);
+}
+/************/
+
+.function-list {
+    margin-top: 20px;
+}
+
+.function-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+}
+
+.function-item button {
+    margin-left: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #dc3545; /* Kırmızı renk */
+    background-color: transparent;
+    border: 2px solid #dc3545; /* Kırmızı kenarlık */
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.function-item button:hover {
+    background-color: #dc3545; /* Kırmızı arka plan */
+    color: white; /* Beyaz metin */
+}
+
+.function-item span {
+    font-size: 16px;
+    color: black;
+    font-weight: bold;
+}
+
+.axis-labels {
+    position: absolute;
+    font-size: 12px;
+    color: black;
+}
+
+.x-labels {
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--text-color) !important;
+}
+
+.y-labels {
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    color: var(--text-color) !important;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: var(--calc-bg);
+}
+
+.menu-toggle {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+.topbar-options,
+.theme-toggle
+ {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+.graph-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+.history-toggle {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+.topbar-options {
+    display: flex;
+    gap: 10px;
+}
+
+.calculator-type {
+    color: var(--text-color);
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.menu-category {
+    margin-top: 10px;
+}
+
+.side-menu {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100%;
+    background-color: var(--menu-bg);
+    transition: left 0.3s ease;
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+.side-menu.open {
+    left: 0;
+}
+
+.menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: var(--calc-bg);
+}
+
+.menu-subheader {
+    margin-left: 10px;
+    font-weight: bold;
+    font-size: 16px;
+    color: var(--text-color);
+}
+
+.close-menu {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+.menu-item {
+    display: block;
+    width: 100%;
+    padding: 15px 20px;
+    text-align: left;
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    color: var(--text-color);
+    transition: background-color 0.2s;
+}
+
+.menu-item:hover {
+    background-color: var(--menu-hover);
+}
+
+.menu-item.active {
+    background-color: var(--menu-active);
+}
+
+.display {
+    padding: 20px;
+    text-align: right;
+}
+
+
+.history {
+    font-size: 14px;
+    color: var(--history-color);
+    min-height: 20px;
+}
+
+.result {
+    font-size: 36px;
+    margin-top: 10px;
+    color: var(--text-color);
+}
+
+.keypad {
+    display: none !important;
+    gap: 1px;
+    background-color: var(--bg-color);
+    top: auto;
+    bottom: 1px;
+}
+
+.keypad.active {
+    display: grid !important;
+    /* Aktif klavye görünür olur */
+}
+
+.standard-keypad {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.scientific-keypad {
+    grid-template-columns: repeat(5, 1fr);
+}
+
+
+
+.keypad button {
+    border: none;
+    background-color: var(--key-bg);
+    font-size: 18px;
+    padding: 15px 5px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    color: var(--text-color);
+}
+
+.keypad button:hover {
+    background-color: var(--key-hover);
+}
+
+.keypad button:active {
+    background-color: var(--key-active);
+    transform: scale(0.95);
+}
+
+.operators {
+    background-color: var(--operator-bg) !important;
+}
+
+.keypad button.equals {
+    background-color: var(--equals-bg);
+    color:var(--text-color);
+}
+
+.keypad button.equals:hover {
+    background-color: var(--equals-hover);
+}
+
+.scientific-keypad button {
+    font-size: 14px;
+    padding: 10px 5px;
+}
+
+.function,
+.trigonometry,
+.constant,
+.memory {
+    background-color: var(--operator-bg);
+}
+
+.date-calculator {
+    padding: 20px;
+    display: none;
+}
+
+.date-calc-section {
+    margin-bottom: 20px;
+}
+
+.date-calc-section h3 {
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.date-inputs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.date-input,
+.days-input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid var(--key-hover);
+    border-radius: 4px;
+    font-size: 14px;
+    width: 100%;
+}
+
+.date-calc-button {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--equals-bg);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+}
+
+.date-calc-button:hover {
+    background-color: var(--equals-hover);
+}
+
+.date-action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.date-action-buttons .date-calc-button {
+    flex: 1;
+}
+
+.date-result {
+    color: var(--text-color);
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 999;
+}
+
+.overlay.active {
+    display: block;
+}
+
+/* Hesap makinesi türlerine özel stiller */
+.calculator[data-type="standard"] .standard-keypad {
+    display: grid;
+}
+
+.calculator[data-type="standard"] .date-calculator, .graphic-calculator, .programmer-calculator {
+    display: none;
+}
+
+.calculator[data-type="standard"] .scientific-keypad,
+.calculator[data-type="standard"] .date-calculator {
+    display: none;
+}
+
+.calculator[data-type="scientific"] .scientific-keypad {
+    display: grid;
+}
+
+.calculator[data-type="scientific"] .standard-keypad,
+.calculator[data-type="scientific"] .date-calculator {
+    display: none;
+}
+
+.calculator[data-type="date"] .date-calculator {
+    display: block;
+}
+
+.calculator[data-type="date"] .standard-keypad,
+.calculator[data-type="date"] .scientific-keypad {
+    display: none;
+}
+
+.calculator[data-type="graphic"] .standard-keypad,
+.calculator[data-type="graphic"] .scientific-keypad,
+.calculator[data-type="graphic"] .date-calculator {
+    display: none;
+}
+
+.calculator[data-type="graphic"] .graphic-calculator {
+    display: flex !important;
+}
+
+.calculator[data-type="programmer"] .programmer-calculator {
+    display: flex !important;
+}
+
+.calculator[data-type="graphic"] {
+    width: 800px;
+    height: 100%;
+}
+
+.calculator[data-type="programmer"] {
+    width: 445px;
+    height: 100%;
+}
+
+
+
+.history-entry {
+    margin-bottom: 1em;
+    color: var(--text-color);
+    padding: 10px;
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: right;
+}
+
+/* Koyu tema */
+body.dark-theme {
+    --bg-color: #202020;
+    --calc-bg: #2d2d2d;
+    --key-bg: #3a3a3a;
+    --key-hover: #454545;
+    --key-active: #505050;
+    --operator-bg: #323232;
+    --equals-bg: #0078d7;
+    --equals-hover: #006abc;
+    --text-color: #ffffff;
+    --history-color: #b0b0b0;
+    --menu-bg: #2d2d2d;
+    --menu-hover: #3a3a3a;
+    --menu-active: #454545;
+
+    --sb-track-color: #ffffff;
+    --sb-thumb-color: #6bffd0;
+    --sb-size: 6px;
+}
+
+body.dark-theme .date-input,
+body.dark-theme .days-input {
+    background-color: var(--key-bg);
+    color: var(--text-color);
+    border-color: var(--key-hover);
+}
+
+/* Responsive tasarım */
+@media (max-width: 480px) {
+
+    .calculator,
+    .calculator[data-type="scientific"] {
+        width: 100%;
+        height: 100vh;
+        border-radius: 0;
+    }
+
+    .scientific-keypad {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .scientific-keypad button {
+        font-size: 12px;
+        padding: 15px 5px;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+
+    .calculator,
+    .calculator[data-type="scientific"] {
+        width: 100%;
+        max-width: 480px;
+    }
+}
+
+.history-panel {
+    position: fixed;
+    top: 0;
+    right: -300px;
+    width: 300px;
+    height: 100%;
+    background-color: var(--calc-bg);
+    transition: right 0.3s ease-in-out;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+}
+
+.history-panel.open {
+    right: 0;
+}
+
+.history-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: var(--calc-bg);
+}
+
+.history-panel-header .history-options {
+    display: flex;
+    gap: 25px;
+}
+
+@media (max-width: 912px) {
+    .history-panel {
+        width: 100%;
+        right: -100%;
+    }
+
+    .history-panel.open {
+        right: 0;
+    }
+
+    .history-panel-header {
+        padding: 10px;
+    }
+
+    .history-panel-header .history-options {
+        gap: 15px;
+    }
+}
+
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    color: var(--text-color);
+}
+
+.history-options button {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    color: var(--text-color);
+    position: relative;
+}
+
+.active {
+    font-weight: bold;
+}
+
+.history-options button::after {
+    content: '';
+    display: block;
+    height: 3px;
+    background: var(--text-color);
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    width: 50%;
+    transform: translateX(-50%) scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.history-options button.active::after {
+    transform: translateX(-50%) scaleX(1);
+}
+
+.clear-history {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    color: var(--text-color);
+    position: absolute;
+    /* Butonu panelin sağ alt köşesine konumlandırmak için */
+    bottom: 10px;
+    /* Alt boşluk */
+    right: 10px;
+    /* Sağ boşluk */
+}
+
+.close-history {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+
+
+.calculator-sidebar .calculator-sidebar-header h2 {
+    padding: 10px;
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    margin-left: 5px;
+}
+
+.calculator-sidebar-content {
+    padding: 50px 0 0 10px;
+    display: block;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Hesap makinesi türlerine özel stiller */
+
+.resultconverters {
+    font-size: 36px;
+    color: var(--text-color);
+    margin-left: 10px;
+    font-weight: 300;
+}
+
+/* Money Calculator */
+
+#moneyArea {
+    display: none;
+}
+
+.money-keypad {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.money-keypad button {
+    padding: 10px;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.money-keypad .clear-entry {
+    grid-column: 1 / 2;
+}
+
+.money-keypad .backspace {
+    grid-column: 2 / 4;
+}
+
+.money-keypad .digit[data-digit="0"] {
+    grid-column: 2 / 3;
+}
+
+.money-keypad .decimal {
+    grid-column: 3 / 4;
+}
+
+
+.money-calculator {
+    display: none;
+}
+
+.currency-container {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.currency-section {
+    display: block;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.currency-section h2 {
+    color: var(--text-color);
+    font-size: 20px;
+    align-self: center;
+    font-weight: 300;
+}
+
+
+.currency-section select {
+    font-size: 1em;
+    background-color: var(--key-bg);
+    color: var(--text-color);
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+.currency-conversion {
+    display: flex;
+}
+
+/* Volume Calculator */
+
+#volumeArea {
+    display: none;
+}
+
+.volume-keypad {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.volume-keypad button {
+    padding: 10px;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.volume-keypad .clear-entry {
+    grid-column: 1 / 2;
+}
+
+.volume-keypad .backspace {
+    grid-column: 2 / 4;
+}
+
+.volume-keypad .digit[data-digit="0"] {
+    grid-column: 2 / 3;
+}
+
+.volume-keypad .decimal {
+    grid-column: 3 / 4;
+}
+
+.volume-container {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+
+
+.volume-section {
+    display: block;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.volume-section h2 {
+    color: var(--text-color);
+    font-size: 20px;
+    align-self: center;
+    font-weight: 300;
+}
+
+.volume-section select {
+    font-size: 1em;
+    background-color: var(--key-bg);
+    color: var(--text-color);
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+.volume-conversion {
+    display: flex;
+}
+
+
+/* Length Calculator */
+
+#lengthArea {
+    display: none;
+}
+
+.length-keypad {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.length-keypad button {
+    padding: 10px;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.length-keypad .clear-entry {
+    grid-column: 1 / 2;
+}
+
+.length-keypad .backspace {
+    grid-column: 2 / 4;
+}
+
+.length-keypad .digit[data-digit="0"] {
+    grid-column: 2 / 3;
+}
+
+.length-keypad .decimal {
+    grid-column: 3 / 4;
+}
+
+.length-container {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.length-section {
+    display: block;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.length-section h2 {
+    color: var(--text-color);
+    font-size: 20px;
+    align-self: center;
+    font-weight: 300;
+}
+
+.length-section select {
+    font-size: 1em;
+    background-color: var(--key-bg);
+    color: var(--text-color);
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+.length-conversion {
+    display: flex;
+}
+
+
+/* Weight and Mass Calculator */
+
+#weightArea {
+    display: none;
+}
+
+.weight-keypad {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.weight-keypad button {
+    padding: 10px;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.weight-keypad .clear-entry {
+    grid-column: 1 / 2;
+}
+
+.weight-keypad .backspace {
+    grid-column: 2 / 4;
+}
+
+.weight-keypad .digit[data-digit="0"] {
+    grid-column: 2 / 3;
+}
+
+.weight-keypad .decimal {
+    grid-column: 3 / 4;
+}
+
+.weight-container {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.weight-section {
+    display: block;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.weight-section h2 {
+    color: var(--text-color);
+    font-size: 20px;
+    align-self: center;
+    font-weight: 300;
+}
+
+.weight-section select {
+    font-size: 1em;
+    background-color: var(--key-bg);
+    color: var(--text-color);
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+.weight-conversion {
+    display: flex;
+}
+
+/* Temperature Calculator */
+
+#temperatureArea {
+    display: none;
+}
+
+.temperature-keypad {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.temperature-keypad button {
+    padding: 10px;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.temperature-keypad .clear-entry {
+    grid-column: 1 / 2;
+}
+
+.temperature-keypad .backspace {
+    grid-column: 2 / 4;
+}
+
+.temperature-keypad .digit[data-digit="0"] {
+    grid-column: 2 / 3;
+}
+
+.temperature-keypad .decimal {
+    grid-column: 3 / 4;
+}
+
+.temperature-container {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.temperature-section {
+    display: block;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.temperature-section h2 {
+    color: var(--text-color);
+    font-size: 20px;
+    align-self: center;
+    font-weight: 300;
+}
+
+.temperature-section select {
+    font-size: 1em;
+    background-color: var(--key-bg);
+    color: var(--text-color);
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+.temperature-conversion {
+    display: flex;
+}
+
+/* Energy Calculator */
+
+#energyArea {
+    display: none;
+}
+
+.energy-keypad {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.energy-keypad button {
+    padding: 10px;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.energy-keypad .clear-entry {
+    grid-column: 1 / 2;
+}
+
+.energy-keypad .backspace {
+    grid-column: 2 / 4;
+}
+
+.energy-keypad .digit[data-digit="0"] {
+    grid-column: 2 / 3;
+}
+
+.energy-keypad .decimal {
+    grid-column: 3 / 4;
+}
+
+.energy-container {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.energy-section {
+    display: block;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.energy-section h2 {
+    color: var(--text-color);
+    font-size: 20px;
+    align-self: center;
+    font-weight: 300;
+}
+
+.energy-section select {
+    font-size: 1em;
+    background-color: var(--key-bg);
+    color: var(--text-color);
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+.energy-conversion {
+    display: flex;
+}
+
+/* Region Calculator */
+
+#regionArea {
+    display: none;
+}
+
+.region-keypad {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.region-keypad button {
+    padding: 10px;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.region-keypad .clear-entry {
+    grid-column: 1 / 2;
+}
+
+.region-keypad .backspace {
+    grid-column: 2 / 4;
+}
+
+.region-keypad .digit[data-digit="0"] {
+    grid-column: 2 / 3;
+}
+
+.region-keypad .decimal {
+    grid-column: 3 / 4;
+}
+
+.region-container {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.region-section {
+    display: block;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.region-section h2 {
+    color: var(--text-color);
+    font-size: 20px;
+    align-self: center;
+    font-weight: 300;
+}
+
+.region-section select {
+    font-size: 1em;
+    background-color: var(--key-bg);
+    color: var(--text-color);
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+.region-conversion {
+    display: flex;
+}
+
+/* Speed Calculator */
+
+#speedArea {
+    display: none;
+}
+
+.speed-keypad {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.speed-keypad button {
+    padding: 10px;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.speed-keypad .clear-entry {
+    grid-column: 1 / 2;
+}
+
+.speed-keypad .backspace {
+    grid-column: 2 / 4;
+}
+
+.speed-keypad .digit[data-digit="0"] {
+    grid-column: 2 / 3;
+}
+
+.speed-keypad .decimal {
+    grid-column: 3 / 4;
+}
+
+.speed-container {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.speed-section {
+    display: block;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.speed-section h2 {
+    color: var(--text-color);
+    font-size: 20px;
+    align-self: center;
+    font-weight: 300;
+}
+
+.speed-section select {
+    font-size: 1em;
+    background-color: var(--key-bg);
+    color: var(--text-color);
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+.speed-conversion {
+    display: flex;
+}
+
+/* Time Calculator */
+
+#timeArea {
+    display: none;
+}
+
+.time-keypad {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.time-keypad button {
+    padding: 10px;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.time-keypad .clear-entry {
+    grid-column: 1 / 2;
+}
+
+.time-keypad .backspace {
+    grid-column: 2 / 4;
+}
+
+.time-keypad .digit[data-digit="0"] {
+    grid-column: 2 / 3;
+}
+
+.time-keypad .decimal {
+    grid-column: 3 / 4;
+}
+
+.time-container {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.time-section {
+    display: block;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.time-section h2 {
+    color: var(--text-color);
+    font-size: 20px;
+    align-self: center;
+    font-weight: 300;
+}
+
+.time-section select {
+    font-size: 1em;
+    background-color: var(--key-bg);
+    color: var(--text-color);
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+.time-conversion {
+    display: flex;
+}
+
+/* Power Calculator */
+
+#powerArea {
+    display: none;
+}
+
+.power-keypad {
+    grid-template-columns: repeat(3, 1fr);
+}   
+
+.power-keypad button {
+    padding: 10px;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.power-keypad .clear-entry {
+    grid-column: 1 / 2;
+}
+
+.power-keypad .backspace {
+    grid-column: 2 / 4;
+}
+
+.power-keypad .digit[data-digit="0"] {
+    grid-column: 2 / 3;
+}
+
+.power-keypad .decimal {
+    grid-column: 3 / 4;
+}
+
+.power-container {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.power-section {
+    display: block;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.power-section h2 {
+    color: var(--text-color);
+    font-size: 20px;
+    align-self: center;
+    font-weight: 300;
+}
+
+.power-section select {
+    font-size: 1em;
+    background-color: var(--key-bg);
+    color: var(--text-color);
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+.power-conversion {
+    display: flex;
+}
+
+/* Data KeyPad */
+
+#dataArea {
+    display: none;
+}
+
+.data-keypad {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.data-keypad button {
+    padding: 10px;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.data-keypad .clear-entry {
+    grid-column: 1 / 2;
+}
+
+.data-keypad .backspace {
+    grid-column: 2 / 4;
+}
+
+.data-keypad .digit[data-digit="0"] {
+    grid-column: 2 / 3;
+}
+
+.data-keypad .decimal {
+    grid-column: 3 / 4;
+}
+
+.data-container {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.data-section {
+    display: block;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.data-section h2 {
+    color: var(--text-color);
+    font-size: 20px;
+    align-self: center;
+    font-weight: 300;
+}
+
+.data-section select {
+    font-size: 1em;
+    background-color: var(--key-bg);
+    color: var(--text-color);
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+.data-conversion {
+    display: flex;
+}
+
+/* Pressure KeyPad */
+
+#pressureArea {
+    display: none;
+}
+
+.pressure-keypad {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.pressure-keypad button {
+    padding: 10px;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.pressure-keypad .clear-entry {
+    grid-column: 1 / 2;
+}
+
+.pressure-keypad .backspace {
+    grid-column: 2 / 4;
+}
+
+.pressure-keypad .digit[data-digit="0"] {
+    grid-column: 2 / 3;
+}
+
+.pressure-keypad .decimal {
+    grid-column: 3 / 4;
+}
+
+.pressure-container {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.pressure-section {
+    display: block;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.pressure-section h2 {
+    color: var(--text-color);
+    font-size: 20px;
+    align-self: center;
+    font-weight: 300;
+}
+
+.pressure-section select {
+    font-size: 1em;
+    background-color: var(--key-bg);
+    color: var(--text-color);
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+.pressure-conversion {
+    display: flex;
+}
+
+/* Angle KeyPad */
+
+#angleArea {
+    display: none;
+}
+
+.angle-keypad {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.angle-keypad button {
+    padding: 10px;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.angle-keypad .clear-entry {
+    grid-column: 1 / 2;
+}
+
+.angle-keypad .backspace {
+    grid-column: 2 / 4;
+}
+
+.angle-keypad .digit[data-digit="0"] {
+    grid-column: 2 / 3;
+}
+
+.angle-keypad .decimal {
+    grid-column: 3 / 4;
+}
+
+.angle-container {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.angle-section {
+    display: block;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.angle-section h2 {
+    color: var(--text-color);
+    font-size: 20px;
+    align-self: center;
+    font-weight: 300;
+}
+
+.angle-section select {
+    font-size: 1em;
+    background-color: var(--key-bg);
+    color: var(--text-color);
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+.angle-conversion {
+    display: flex;
+}
+
+
+
+/* Programlayici Hesap Makinesi */
+.programmer-calculator {
+    width: 100%;
+    max-width: 450px;
+    background-color: var(--calc-bg);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-color);
+}
+
+#display-container {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+#display {
+    font-size: 2rem;
+    padding: 15px;
+    background-color: var(--key-bg);
+    text-align: right;
+    border-radius: 5px;
+    width: 100%;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+    color: var(--text-color);
+}
+
+#number-bases {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+    font-size: 1rem;
+    color: var(--text-color);
+}
+
+#input-mode-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 20px;
+    color: var(--text-color);
+}
+
+#buttons-container {
+    width: 100%;
+}
+
+#function-buttons,
+#number-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 15px;
+    font-size: 1rem;
+    background-color: var(--key-bg);
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    color: var(--text-color);
+}
+
+button:hover {
+    background-color: var(--key-hover);
+}
+
+button:active {
+    background-color: var(--key-active);
+}
+
+/* HEX butonları soluk başlasın */
+.hex-btn {
+    color: #bbb;
+    pointer-events: none;
+    /* Tıklanamaz */
+}
+
+.hex-btn.active {
+    color: var(--text-color);
+    pointer-events: auto;
+    /* Tıklanabilir */
+}
+
+#input-mode-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 20px;
+    color: var(--text-color);
+}
+
+#input-mode-container label {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+#input-mode-container select {
+    padding: 10px;
+    font-size: 1rem;
+    background-color: var(--key-bg);
+    border: 1px solid var(--key-hover);
+    border-radius: 5px;
+    color: var(--text-color);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+#input-mode-container select:hover {
+    background-color: var(--key-hover);
+    border-color: var(--key-active);
+}
+
+#input-mode-container select:focus {
+    outline: none;
+    border-color: var(--equals-bg);
+}
+
+#bit-display {
+    font-size: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 20px;
+    width: 100%;
+    background-color: var(--key-bg);
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+#bit-display span {
+    padding: 0 5px;
+    cursor: pointer;
+}
+
+#bit-display span:hover {
+    background-color: var(--key-hover);
+    border-radius: 4px;
+}

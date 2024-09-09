@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HESAP MAKİNESİ</title>
+    <link rel="stylesheet" href="static/css/styles.css">
+    <script src="https://kit.fontawesome.com/b80699d249.js" crossorigin="anonymous"></script>
+    <link rel="apple-touch-icon" sizes="57x57" href="static/favicons/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="static/favicons/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="static/favicons/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="static/favicons/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="static/favicons/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="static/favicons/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="static/favicons/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="static/favicons/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="static/favicons/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="144x144" href="static/favicons/android-icon-144x144.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="static/favicons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="static/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="static/favicons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="static/favicons/favicon-16x16.png">
+    <link rel="manifest" href="static/favicons/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="static/favicons/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+</head>
+
+<body>
+    <div class="container"> 
+        <div class="calculator-sidebar" id="calculatorSideBar">
+            <div class="calculator-sidebar-header">
+                <h2 id="calcSideBarHeader"></h2>
+            </div>
+            <div class="calculator-sidebar-content">
+                <div class="money-calculator" id="moneyArea">
+                    <div class="currency-container">
+                        <div class="currency-section">
+                            <div class="currency-conversion">
+                                <h2 id="currencySymbolConvert">$</h2>
+                                <div class="resultconverters" id="currenyConvert">0</div>
+                            </div>
+                            <select id="convertPrice">
+                                <option value="USD">United States - Dollar</option>
+                                <option value="EUR">Europe - Euro</option>
+                                <option value="TRY">Türkiye - Türk Lirası</option>
+                            </select>
+                        </div>
+                        <div class="currency-section">
+                            <div class="currency-conversion">
+                                <h2 id="currencySymbolConverted">€</h2>
+                                <div class="resultconverters" id="currencyConverted">0</div>
+                            </div>
+                            <select id="convertedPrice">
+                                <option value="EUR">Europe - Euro</option>
+                                <option value="USD">United States - Dollar</option>
+                                <option value="TRY">Türkiye - Türk Lirası</option>
+                                <!-- Add more currencies as needed -->
+                            </select>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="volume-calculator" id="volumeArea">
+                    <div class="volume-container">
+                        <div class="volume-section">
+                            <div class="volume-conversion">
+                                <div class="resultconverters" id="volumeInput">0</div>
+                            </div>
+                            <select id="fromUnit">
+                                <option value="liters">Litre</option>
+                                <option value="milliliters">Mililitre</option>
+                                <option value="cubic_meters">Metreküp</option>
+                                <option value="cubic_centimeters">Santimetreküp</option>
+                                <option value="gallons">Galon</option>
+                                <option value="quarts">Quart</option>
+                                <option value="pints">Pint</option>
+                                <option value="cups">Bardak</option>
+                                <option value="fluid_ounces">Sıvı Ons</option>
+                                <option value="tablespoons">Yemek Kaşığı</option>
+                                <option value="teaspoons">Çay Kaşığı</option>
+                            </select>
+                        </div>
+                        <div class="volume-section">
+                            <div class="volume-conversion">
+                                <div class="resultconverters" id="volumeResult">0</div>
+                            </div>
+                            <select id="toUnit">
+                                <option value="milliliters">Mililitre</option>
+                                <option value="liters">Litre</option>
+                                <option value="cubic_meters">Metreküp</option>
+                                <option value="cubic_centimeters">Santimetreküp</option>
+                                <option value="gallons">Galon</option>
+                                <option value="quarts">Quart</option>
+                                <option value="pints">Pint</option>
+                                <option value="cups">Bardak</option>
+                                <option value="fluid_ounces">Sıvı Ons</option>
+                                <option value="tablespoons">Yemek Kaşığı</option>
+                                <option value="teaspoons">Çay Kaşığı</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="length-calculator" id="lengthArea">
+                    <div class="length-container">
+                        <div class="length-section">
+                            <div class="length-conversion">
+                                <div class="resultconverters" id="lengthInput">0</div>
+                            </div>
+                            <select id="fromUnitLength">
+                                <option value="meters">Metre</option>
+                                <option value="centimeters">Santimetre</option>
+                                <option value="millimeters">Milimetre</option>
+                                <option value="kilometers">Kilometre</option>
+                                <option value="inches">İnç</option>
+                                <option value="feet">Feet</option>
+                                <option value="yards">Yard</option>
+                                <option value="miles">Mil</option>
+                            </select>
+                        </div>
+                        <div class="length-section">
+                            <div class="length-conversion">
+                                <div class="resultconverters" id="lengthResult">0</div>
+                            </div>
+                            <select id="toUnitLength">
+                                <option value="centimeters">Santimetre</option>
+                                <option value="meters">Metre</option>
+                                <option value="millimeters">Milimetre</option>
+                                <option value="kilometers">Kilometre</option>
+                                <option value="inches">İnç</option>
+                                <option value="feet">Feet</option>
+                                <option value="yards">Yard</option>
+                                <option value="miles">Mil</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="weight-calculator" id="weightArea">
+                    <div class="weight-container">
+                        <div class="weight-section">
+                            <div class="weight-conversion">
+                                <div class="resultconverters" id="weightInput">0</div>
+                            </div>
+                            <select id="fromUnitWeight">
+                                <option value="carats">Karat</option>
+                                <option value="milligrams">Miligram</option>
+                                <option value="centigrams">Santigram</option>
+                                <option value="decigrams">Desigram</option>
+                                <option value="grams">Gram</option>
+                                <option value="dekagrams">Dekagram</option>
+                                <option value="hectograms">Hektogram</option>
+                                <option value="kilograms">Kilogram</option>
+                                <option value="metricTons">Metrik Ton</option>
+                                <option value="ounces">Ons</option>
+                                <option value="pounds">Libre</option>
+                                <option value="stones">Stons</option>
+                                <option value="shortTons">Küçük ton (ABD)</option>
+                                <option value="longTons">Büyük ton (Birleşik Krallık)</option>
+                            </select>
+                        </div>
+                        <div class="weight-section">
+                            <div class="weight-conversion">
+                                <div class="resultconverters" id="weightResult">0</div>
+                            </div>
+                            <select id="toUnitWeight">
+                                <option value="milligrams">Miligram</option>
+                                <option value="centigrams">Santigram</option>
+                                <option value="carats">Karat</option>
+                                <option value="decigrams">Desigram</option>
+                                <option value="grams">Gram</option>
+                                <option value="dekagrams">Dekagram</option>
+                                <option value="hectograms">Hektogram</option>
+                                <option value="kilograms">Kilogram</option>
+                                <option value="metricTons">Metrik Ton</option>
+                                <option value="ounces">Ons</option>
+                                <option value="pounds">Libre</option>
+                                <option value="stones">Stons</option>
+                                <option value="shortTons">Küçük ton (ABD)</option>
+                                <option value="longTons">Büyük ton (Birleşik Krallık)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="temperature-calculator" id="temperatureArea">
+                    <div class="temperature-container">
+                        <div class="temperature-section">
+                            <div class="temperature-conversion">
+                                <div class="resultconverters" id="temperatureInput">0</div>
+                            </div>
+                            <select id="fromUnitTemperature">
+                                <option value="celsius">Celsius</option>
+                                <option value="fahrenheit">Fahrenheit</option>
+                                <option value="kelvin">Kelvin</option>
+
+
+                            </select>
+                        </div>
+                        <div class="temperature-section">
+                            <div class="temperature-conversion">
+                                <div class="resultconverters" id="temperatureResult">0</div>
+                            </div>
+                            <select id="toUnitTemperature">
+                                <option value="fahrenheit">Fahrenheit</option>
+                                <option value="celsius">Celsius</option>
+                                <option value="kelvin">Kelvin</option>
+                            </select>
+                        </div>
+                    </div>
+                </div> 
+
+                <div class="energy-calculator" id="energyArea">
+                    <div class="energy-container">
+                        <div class="energy-section">
+                            <div class="energy-conversion">
+                                <div class="resultconverters" id="energyInput">0</div>
+                            </div>
+                            <select id="fromUnitEnergy">
+                                <option value="joules">Joule</option>
+                                <option value="kilojoules">Kilojoule</option>
+                                <option value="calories">Kalori</option>
+                                <option value="kilocalories">Kilokalori</option>
+                                <option value="watt_hours">Watt Saat</option>
+                                <option value="kilowatt_hours">Kilowatt Saat</option>
+                                <option value="electronvolts">Elektronvolt</option>
+                                <option value="britishThermalUnits">Britanya Termal Birimi</option>
+                                <option value="usThermalUnits">ABD Termal Birimi</option>
+                                <option value="footPounds">Ayak libre</option>
+                            </select>
+                        </div>
+                        <div class="energy-section">
+                            <div class="energy-conversion">
+                                <div class="resultconverters" id="energyResult">0</div>
+                            </div>
+                            <select id="toUnitEnergy">
+                                <option value="kilojoules">Kilojoule</option>
+                                <option value="joules">Joule</option>
+                                <option value="calories">Kalori</option>
+                                <option value="kilocalories">Kilokalori</option>
+                                <option value="watt_hours">Watt Saat</option>
+                                <option value="kilowatt_hours">Kilowatt Saat</option>
+                                <option value="electronvolts">Elektronvolt</option>
+                                <option value="britishThermalUnits">Britanya Termal Birimi</option>
+                                <option value="usThermalUnits">ABD Termal Birimi</option>
+                                <option value="footPounds">Ayak libre</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="region-calculator" id="regionArea">
+                    <div class="region-container">
+                        <div class="region-section">
+                            <div class="region-conversion">
+                                <div class="resultconverters" id="regionInput">0</div>
+                            </div>
+                            <select id="fromUnitRegion">
+                                <option value="square_millimeters">Milimetre Kare</option>
+                                <option value="square_centimeters">Santimetre Kare</option>
+                                <option value="square_meters">Metrekare</option>
+                                <option value="square_kilometers">Kilometre Kare</option>
+                                <option value="hectares">Hektar</option>
+                                <option value="acres">Dönüm</option>
+                                <option value="square_miles">Mil Kare</option>
+                                <option value="square_yards">Yard Kare</option>
+                                <option value="square_feet">Feet Kare</option>
+                                <option value="square_inches">İnç Kare</option>
+                            </select>
+                        </div>
+                        <div class="region-section">
+                            <div class="region-conversion">
+                                <div class="resultconverters" id="regionResult">0</div>
+                            </div>
+                            <select id="toUnitRegion">
+                                <option value="square_centimeters">Santimetre Kare</option>
+                                <option value="square_meters">Metrekare</option>
+                                <option value="square_millimeters">Milimetre Kare</option>
+                                <option value="square_kilometers">Kilometre Kare</option>
+                                <option value="hectares">Hektar</option>
+                                <option value="acres">Dönüm</option>
+                                <option value="square_miles">Mil Kare</option>
+                                <option value="square_yards">Yard Kare</option>
+                                <option value="square_feet">Feet Kare</option>
+                                <option value="square_inches">İnç Kare</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="speed-calculator" id="speedArea">
+                    <div class="speed-container">
+                        <div class="speed-section">
+                            <div class="speed-conversion">
+                                <div class="resultconverters" id="speedInput">0</div>
+                            </div>
+                            <select id="fromUnitSpeed">
+                                <option value="centimeters_per_second">Santimetre/Saniye</option>
+                                <option value="meters_per_second">Metre/Saniye</option>
+                                <option value="kilometers_per_hour">Kilometre/Saat</option>
+                                <option value="kilometers_per_second">Kilometre/Saniye</option>
+                                <option value="feet_per_second">Feet/Saniye</option>
+                                <option value="miles_per_hour">Mil/Saat</option>
+                                <option value="knots">Düğüm</option>
+                                <option value="mach">Mach</option>
+                            </select>
+                        </div>
+                        <div class="speed-section">
+                            <div class="speed-conversion">
+                                <div class="resultconverters" id="speedResult">0</div>
+                            </div>
+                            <select id="toUnitSpeed">
+                                <option value="meters_per_second">Metre/Saniye</option>
+                                <option value="kilometers_per_hour">Kilometre/Saat</option>
+                                <option value="centimeters_per_second">Santimetre/Saniye</option>
+                                <option value="kilometers_per_second">Kilometre/Saniye</option>
+                                <option value="feet_per_second">Feet/Saniye</option>
+                                <option value="miles_per_hour">Mil/Saat</option>
+                                <option value="knots">Düğüm</option>
+                                <option value="mach">Mach</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="time-calculator" id="timeArea">
+                    <div class="time-container">
+                        <div class="time-section">
+                            <div class="time-conversion">
+                                <div class="resultconverters" id="timeInput">0</div>
+                            </div>
+                            <select id="fromUnitTime">
+                                <option value="microseconds">Mikrosaniye</option>
+                                <option value="milliseconds">Milisaniye</option>
+                                <option value="seconds">Saniye</option>
+                                <option value="minutes">Dakika</option>
+                                <option value="hours">Saat</option>
+                                <option value="days">Gün</option>
+                                <option value="weeks">Hafta</option>
+                                <option value="years">Yıl</option>
+                            </select>
+                        </div>
+                        <div class="time-section">
+                            <div class="time-conversion">
+                                <div class="resultconverters" id="timeResult">0</div>
+                            </div>
+                            <select id="toUnitTime">
+                                <option value="milliseconds">Milisaniye</option>
+                                <option value="seconds">Saniye</option>
+                                <option value="microseconds">Mikrosaniye</option>
+                                <option value="minutes">Dakika</option>
+                                <option value="hours">Saat</option>
+                                <option value="days">Gün</option>
+                                <option value="weeks">Hafta</option>
+                                <option value="years">Yıl</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="power-calculator" id="powerArea">
+                    <div class="power-container">
+                        <div class="power-section">
+                            <div class="power-conversion">
+                                <div class="resultconverters" id="powerInput">0</div>
+                            </div>
+                            <select id="fromUnitPower">
+                                <option value="watts">Watt</option>
+                                <option value="kilowatts">Kilowatt</option>
+                                <option value="horsepower">Beygir Gücü (ABD)</option>
+                                <option value="foot_pounds_per_minute">Fut-libre/Dakika</option>
+                                <option value="btu_per_minute">BTU/Dakika</option>
+                            </select>
+                        </div>
+                        <div class="power-section">
+                            <div class="power-conversion">
+                                <div class="resultconverters" id="powerResult">0</div>
+                            </div>
+                            <select id="toUnitPower">
+                                <option value="kilowatts">Kilowatt</option>
+                                <option value="horsepower">Beygir Gücü (ABD)</option>
+                                <option value="watts">Watt</option>
+                                <option value="foot_pounds_per_minute">Fut-libre/Dakika</option>
+                                <option value="btu_per_minute">BTU/Dakika</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="data-calculator" id="dataArea">
+                    <div class="data-container">
+                        <div class="data-section">
+                            <div class="data-conversion">
+                                <div class="resultconverters" id="dataInput">0</div>
+                            </div>
+                            <select id="fromUnitData">
+                                <option value="bits">Bit</option>
+                                <option value="nibbles">Dört Bayt</option>
+                                <option value="bytes">Bayt</option>
+                                <option value="kilobits">Kilobit</option>
+                                <option value="kibibits">Kibibit</option>
+                                <option value="kilobytes">Kilobayt</option>
+                                <option value="kibibytes">Kibibayt</option>
+                                <option value="megabits">Megabit</option>
+                                <option value="mebibits">Mebibit</option>
+                                <option value="megabytes">Megabayt</option>
+                                <option value="mebibytes">Mebibayt</option>
+                                <option value="gigabits">Gigabit</option>
+                                <option value="gibibits">Gigibit</option>
+                                <option value="gigabytes">Gigabayt</option>
+                                <option value="gibibytes">Gibibayt</option>
+                                <option value="terabits">Terabit</option>
+                                <option value="tebibits">Tebibit</option>
+                                <option value="terabytes">Terabayt</option>
+                                <option value="tebibytes">Tebibayt</option>
+                                <option value="petabits">Petabit</option>
+                                <option value="pebibits">Pebibit</option>
+                                <option value="petabytes">Petabayt</option>
+                                <option value="pebibytes">Pebibayt</option>
+                                <option value="exabits">Eksabit</option>
+                                <option value="exbibits">Eksbibit</option>
+                                <option value="exabytes">Eksabayt</option>
+                                <option value="exbibytes">Eksbibayt</option>
+                                <option value="zettabits">Zetabit</option>
+                                <option value="zettabytes">Zetabayt</option>
+                                <option value="zebibytes">Zebibayt</option>
+                                <option value="yottabits">Yottabit</option>
+                                <option value="yobibits">Yobibit</option>
+                                <option value="yottabytes">Yottabayt</option>
+                                <option value="yobibytes">Yobibayt</option>
+                            </select>
+                        </div>
+                        <div class="data-section">
+                            <div class="data-conversion">
+                                <div class="resultconverters" id="dataResult">0</div>
+                            </div>
+                            <select id="toUnitData">
+                                <option value="nibbles">Dört Bayt</option>
+                                <option value="bytes">Bayt</option>
+                                <option value="bits">Bit</option>
+                                <option value="kilobits">Kilobit</option>
+                                <option value="kibibits">Kibibit</option>
+                                <option value="kilobytes">Kilobayt</option>
+                                <option value="kibibytes">Kibibayt</option>
+                                <option value="megabits">Megabit</option>
+                                <option value="mebibits">Mebibit</option>
+                                <option value="megabytes">Megabayt</option>
+                                <option value="mebibytes">Mebibayt</option>
+                                <option value="gigabits">Gigabit</option>
+                                <option value="gibibits">Gigibit</option>
+                                <option value="gigabytes">Gigabayt</option>
+                                <option value="gibibytes">Gibibayt</option>
+                                <option value="terabits">Terabit</option>
+                                <option value="tebibits">Tebibit</option>
+                                <option value="terabytes">Terabayt</option>
+                                <option value="tebibytes">Tebibayt</option>
+                                <option value="petabits">Petabit</option>
+                                <option value="pebibits">Pebibit</option>
+                                <option value="petabytes">Petabayt</option>
+                                <option value="pebibytes">Pebibayt</option>
+                                <option value="exabits">Eksabit</option>
+                                <option value="exbibits">Eksbibit</option>
+                                <option value="exabytes">Eksabayt</option>
+                                <option value="exbibytes">Eksbibayt</option>
+                                <option value="zettabits">Zetabit</option>
+                                <option value="zettabytes">Zetabayt</option>
+                                <option value="zebibytes">Zebibayt</option>
+                                <option value="yottabits">Yottabit</option>
+                                <option value="yobibits">Yobibit</option>
+                                <option value="yottabytes">Yottabayt</option>
+                                <option value="yobibytes">Yobibayt</option>
+                            </select>
+                        </div>
+                    </div> 
+                </div>
+
+                <div class="pressure-calculator" id="pressureArea">
+                    <div class="pressure-container">
+                        <div class="pressure-section">
+                            <div class="pressure-conversion">
+                                <div class="resultconverters" id="pressureInput">0</div>
+                            </div>
+                            <select id="fromUnitPressure">
+                                <option value="atmospheres">Atmosfer</option>
+                                <option value="bars">Bar</option>
+                                <option value="kilopascals">Kilopascal</option>
+                                <option value="millimeters_of_mercury">Milimetre Cıva</option>
+                                <option value="pascals">Pascal</option>
+                                <option value="pounds_per_square_inch">Libre / İnçkare</option>
+                            </select>
+                        </div>
+                        <div class="pressure-section">
+                            <div class="pressure-conversion">
+                                <div class="resultconverters" id="pressureResult">0</div>
+                            </div>
+                            <select id="toUnitPressure">
+                                <option value="bars">Bar</option>
+                                <option value="kilopascals">Kilopascal</option>
+                                <option value="atmospheres">Atmosfer</option>
+                                <option value="millimeters_of_mercury">Milimetre Cıva</option>
+                                <option value="pascals">Pascal</option>
+                                <option value="pounds_per_square_inch">Libre / İnçkare</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="angle-calculator" id="angleArea">
+                    <div class="angle-container">
+                        <div class="angle-section">
+                            <div class="angle-conversion">
+                                <div class="resultconverters" id="angleInput">0</div>
+                            </div>
+                            <select id="fromUnitAngle">
+                                <option value="degrees">Derece</option>
+                                <option value="radians">Radyan</option>
+                                <option value="gradians">Gradyan</option>
+                            </select>
+                        </div>
+                        <div class="angle-section">
+                            <div class="angle-conversion">
+                                <div class="resultconverters" id="angleResult">0</div>
+                            </div>
+                            <select id="toUnitAngle">
+                                <option value="radians">Radyan</option>
+                                <option value="gradians">Gradyan</option>
+                                <option value="degrees">Derece</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="calculator" id="calculator" data-type="standard">
+            <div class="top-bar">
+                <button id="menu-toggle" class="menu-toggle">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <span class="calculator-type">Standart</span>
+                <div class="topbar-options">
+                    <button id="theme-toggle" class="theme-toggle">
+                        <i class="fa fa-adjust"></i>
+                    </button>
+                    <button id="history-toggle" class="history-toggle">
+                        <i class="fa fa-history"></i>
+                    </button>
+                    <button id="graph-toggle" class="graph-toggle">
+                        <i class="fa fa-chart-line"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="side-menu">
+                <div class="menu-header">
+                    <h2><i class="fa fa-bars"></i></h2>
+
+                    <button id="close-menu" class="close-menu"><i class="fa fa-times"></i></button>
+                </div>
+
+                <div class="menu-category">
+                    <h6 class="menu-subheader">Hesap Makinesi</h3>
+                        <button class="menu-item active" data-type="standard">
+                            <i class="fa-solid fa-calculator"></i> Standart
+                        </button>
+                        <button class="menu-item" data-type="scientific">
+                            <i class="fa-solid fa-flask"></i> Bilimsel
+                        </button>
+                        <button class="menu-item" data-type="graphic">
+                            <i class="fa-solid fa-chart-line"></i> Grafik Oluşturma
+                        </button>
+                        <button class="menu-item" data-type="programmer">
+                            <i class="fa-solid fa-code"></i> Programlayıcı
+                        </button>
+                        <button class="menu-item" data-type="date">
+                            <i class="fa-solid fa-calendar-days"></i> Tarih Hesaplama
+                        </button>
+                </div>
+
+                <div class="menu-category">
+                    <h6 class="menu-subheader">Dönüştürücü</h3>
+                        <button class="menu-item" data-type="money">
+                            <i class="fa-solid fa-coins"></i> Para Birimi
+                        </button>
+                        <button class="menu-item" data-type="volume">
+                            <i class="fa-solid fa-cube"></i> Hacim
+                        </button>
+                        <button class="menu-item" data-type="length">
+                            <i class="fa-solid fa-ruler-vertical"></i> Uzunluk
+                        </button>
+                        <button class="menu-item" data-type="weight">
+                            <i class="fa-solid fa-weight-hanging"></i> Ağırlık ve Kütle
+                        </button>
+                        <button class="menu-item" data-type="temperature">
+                            <i class="fa fa-thermometer-half"></i> Sıcaklık
+                        </button>
+                        <button class="menu-item" data-type="energy">
+                            <i class="fa fa-bolt"></i> Enerji
+                        </button>
+                        <button class="menu-item" data-type="region">
+                            <i class="fa fa-square"></i> Alan
+                        </button>
+                        <button class="menu-item" data-type="speed">
+                            <i class="fa fa-tachometer"></i> Hız
+                        </button>
+                        <button class="menu-item" data-type="time">
+                            <i class="fa fa-clock-o"></i> Zaman
+                        </button>
+                        <button class="menu-item" data-type="power">
+                            <i class="fa fa-battery-full"></i> Güç
+                        </button>
+                        <button class="menu-item" data-type="data">
+                            <i class="fa fa-hdd-o"></i> Veri
+                        </button>
+                        <button class="menu-item" data-type="pressure">
+                            <i class="fa fa-tachometer"></i> Basınç
+                        </button>
+                        <button class="menu-item" data-type="angle">
+                            <i class="fa fa-compass"></i> Açı
+                        </button>
+                </div>
+            </div>
+
+
+
+            <div class="display">
+                <div class="history"></div>
+                <div class="result">0</div>
+            </div>
+
+
+            <div class="keypad standard-keypad active">
+                <button class="clear" data-action="clear">C</button>
+                <button class="clear-entry" data-action="clear-entry">CE</button>
+                <button class="backspace" data-action="backspace">⌫</button>
+                <button class="operator" data-action="divide">÷</button>
+
+                <button class="digit" data-digit="7">7</button>
+                <button class="digit" data-digit="8">8</button>
+                <button class="digit" data-digit="9">9</button>
+                <button class="operator" data-action="multiply">×</button>
+
+                <button class="digit" data-digit="4">4</button>
+                <button class="digit" data-digit="5">5</button>
+                <button class="digit" data-digit="6">6</button>
+                <button class="operator" data-action="subtract">-</button>
+
+                <button class="digit" data-digit="1">1</button>
+                <button class="digit" data-digit="2">2</button>
+                <button class="digit" data-digit="3">3</button>
+                <button class="operator" data-action="add">+</button>
+
+                <button class="negate" data-action="negate">±</button>
+                <button class="digit" data-digit="0">0</button>
+                <button class="decimal" data-action="decimal">.</button>
+                <button class="equals" data-action="calculate">=</button>
+            </div>
+
+            <div class="keypad money-keypad">
+
+                <button class="clear-entry" data-action="clear-entry">CE</button>
+                <button class="backspace" data-action="backspace">⌫</button>
+
+                <button class="digit" data-digit="7">7</button>
+                <button class="digit" data-digit="8">8</button>
+                <button class="digit" data-digit="9">9</button>
+                <button class="digit" data-digit="4">4</button>
+                <button class="digit" data-digit="5">5</button>
+                <button class="digit" data-digit="6">6</button>
+                <button class="digit" data-digit="1">1</button>
+                <button class="digit" data-digit="2">2</button>
+                <button class="digit" data-digit="3">3</button>
+                <button class="digit" data-digit="0">0</button>
+                <button class="decimal" data-action="decimal">.</button>
+            </div>
+
+            <div class="keypad volume-keypad">
+
+                <button class="clear-entry" data-action="clear-entry">CE</button>
+                <button class="backspace" data-action="backspace">⌫</button>
+
+                <button class="digit" data-digit="7">7</button>
+                <button class="digit" data-digit="8">8</button>
+                <button class="digit" data-digit="9">9</button>
+                <button class="digit" data-digit="4">4</button>
+                <button class="digit" data-digit="5">5</button>
+                <button class="digit" data-digit="6">6</button>
+                <button class="digit" data-digit="1">1</button>
+                <button class="digit" data-digit="2">2</button>
+                <button class="digit" data-digit="3">3</button>
+                <button class="digit" data-digit="0">0</button>
+                <button class="decimal" data-action="decimal">.</button>
+            </div>
+
+            <div class="keypad length-keypad">
+
+                <button class="clear-entry" data-action="clear-entry">CE</button>
+                <button class="backspace" data-action="backspace">⌫</button>
+
+                <button class="digit" data-digit="7">7</button>
+                <button class="digit" data-digit="8">8</button>
+                <button class="digit" data-digit="9">9</button>
+                <button class="digit" data-digit="4">4</button>
+                <button class="digit" data-digit="5">5</button>
+                <button class="digit" data-digit="6">6</button>
+                <button class="digit" data-digit="1">1</button>
+                <button class="digit" data-digit="2">2</button>
+                <button class="digit" data-digit="3">3</button>
+                <button class="digit" data-digit="0">0</button>
+                <button class="decimal" data-action="decimal">.</button>
+            </div>
+
+            <div class="keypad weight-keypad">
+
+                <button class="clear-entry" data-action="clear-entry">CE</button>
+                <button class="backspace" data-action="backspace">⌫</button>
+
+                <button class="digit" data-digit="7">7</button>
+                <button class="digit" data-digit="8">8</button>
+                <button class="digit" data-digit="9">9</button>
+                <button class="digit" data-digit="4">4</button>
+                <button class="digit" data-digit="5">5</button>
+                <button class="digit" data-digit="6">6</button>
+                <button class="digit" data-digit="1">1</button>
+                <button class="digit" data-digit="2">2</button>
+                <button class="digit" data-digit="3">3</button>
+                <button class="digit" data-digit="0">0</button>
+                <button class="decimal" data-action="decimal">.</button>
+            </div>
+
+            <div class="keypad temperature-keypad">
+
+                <button class="clear-entry" data-action="clear-entry">CE</button>
+                <button class="backspace" data-action="backspace">⌫</button>
+
+                <button class="digit" data-digit="7">7</button>
+                <button class="digit" data-digit="8">8</button>
+                <button class="digit" data-digit="9">9</button>
+                <button class="digit" data-digit="4">4</button>
+                <button class="digit" data-digit="5">5</button>
+                <button class="digit" data-digit="6">6</button>
+                <button class="digit" data-digit="1">1</button>
+                <button class="digit" data-digit="2">2</button>
+                <button class="digit" data-digit="3">3</button>
+                <button class="digit" data-digit="0">0</button>
+                <button class="decimal" data-action="decimal">.</button>
+            </div>
+
+            <div class="keypad energy-keypad">
+
+                <button class="clear-entry" data-action="clear-entry">CE</button>
+                <button class="backspace" data-action="backspace">⌫</button>
+
+                <button class="digit" data-digit="7">7</button>
+                <button class="digit" data-digit="8">8</button>
+                <button class="digit" data-digit="9">9</button>
+                <button class="digit" data-digit="4">4</button>
+                <button class="digit" data-digit="5">5</button>
+                <button class="digit" data-digit="6">6</button>
+                <button class="digit" data-digit="1">1</button>
+                <button class="digit" data-digit="2">2</button>
+                <button class="digit" data-digit="3">3</button>
+                <button class="digit" data-digit="0">0</button>
+                <button class="decimal" data-action="decimal">.</button>
+            </div>
+
+            <div class="keypad region-keypad">
+
+                <button class="clear-entry" data-action="clear-entry">CE</button>
+                <button class="backspace" data-action="backspace">⌫</button>
+
+                <button class="digit" data-digit="7">7</button>
+                <button class="digit" data-digit="8">8</button>
+                <button class="digit" data-digit="9">9</button>
+                <button class="digit" data-digit="4">4</button>
+                <button class="digit" data-digit="5">5</button>
+                <button class="digit" data-digit="6">6</button>
+                <button class="digit" data-digit="1">1</button>
+                <button class="digit" data-digit="2">2</button>
+                <button class="digit" data-digit="3">3</button>
+                <button class="digit" data-digit="0">0</button>
+                <button class="decimal" data-action="decimal">.</button>
+            </div>
+
+            <div class="keypad speed-keypad">
+
+                <button class="clear-entry" data-action="clear-entry">CE</button>
+                <button class="backspace" data-action="backspace">⌫</button>
+
+                <button class="digit" data-digit="7">7</button>
+                <button class="digit" data-digit="8">8</button>
+                <button class="digit" data-digit="9">9</button>
+                <button class="digit" data-digit="4">4</button>
+                <button class="digit" data-digit="5">5</button>
+                <button class="digit" data-digit="6">6</button>
+                <button class="digit" data-digit="1">1</button>
+                <button class="digit" data-digit="2">2</button>
+                <button class="digit" data-digit="3">3</button>
+                <button class="digit" data-digit="0">0</button>
+                <button class="decimal" data-action="decimal">.</button>
+            </div>
+
+            <div class="keypad time-keypad">
+
+                <button class="clear-entry" data-action="clear-entry">CE</button>
+                <button class="backspace" data-action="backspace">⌫</button>
+
+                <button class="digit" data-digit="7">7</button>
+                <button class="digit" data-digit="8">8</button>
+                <button class="digit" data-digit="9">9</button>
+                <button class="digit" data-digit="4">4</button>
+                <button class="digit" data-digit="5">5</button>
+                <button class="digit" data-digit="6">6</button>
+                <button class="digit" data-digit="1">1</button>
+                <button class="digit" data-digit="2">2</button>
+                <button class="digit" data-digit="3">3</button>
+                <button class="digit" data-digit="0">0</button>
+                <button class="decimal" data-action="decimal">.</button>
+            </div>
+
+            <div class="keypad power-keypad">
+
+                <button class="clear-entry" data-action="clear-entry">CE</button>
+                <button class="backspace" data-action="backspace">⌫</button>
+
+                <button class="digit" data-digit="7">7</button>
+                <button class="digit" data-digit="8">8</button>
+                <button class="digit" data-digit="9">9</button>
+                <button class="digit" data-digit="4">4</button>
+                <button class="digit" data-digit="5">5</button>
+                <button class="digit" data-digit="6">6</button>
+                <button class="digit" data-digit="1">1</button>
+                <button class="digit" data-digit="2">2</button>
+                <button class="digit" data-digit="3">3</button>
+                <button class="digit" data-digit="0">0</button>
+                <button class="decimal" data-action="decimal">.</button>
+            </div>
+
+            <div class="keypad data-keypad">
+
+                <button class="clear-entry" data-action="clear-entry">CE</button>
+                <button class="backspace" data-action="backspace">⌫</button>
+
+                <button class="digit" data-digit="7">7</button>
+                <button class="digit" data-digit="8">8</button>
+                <button class="digit" data-digit="9">9</button>
+                <button class="digit" data-digit="4">4</button>
+                <button class="digit" data-digit="5">5</button>
+                <button class="digit" data-digit="6">6</button>
+                <button class="digit" data-digit="1">1</button>
+                <button class="digit" data-digit="2">2</button>
+                <button class="digit" data-digit="3">3</button>
+                <button class="digit" data-digit="0">0</button>
+                <button class="decimal" data-action="decimal">.</button>
+            </div>
+
+            <div class="keypad pressure-keypad">
+
+                <button class="clear-entry" data-action="clear-entry">CE</button>
+                <button class="backspace" data-action="backspace">⌫</button>
+
+                <button class="digit" data-digit="7">7</button>
+                <button class="digit" data-digit="8">8</button>
+                <button class="digit" data-digit="9">9</button>
+                <button class="digit" data-digit="4">4</button>
+                <button class="digit" data-digit="5">5</button>
+                <button class="digit" data-digit="6">6</button>
+                <button class="digit" data-digit="1">1</button>
+                <button class="digit" data-digit="2">2</button>
+                <button class="digit" data-digit="3">3</button>
+                <button class="digit" data-digit="0">0</button>
+                <button class="decimal" data-action="decimal">.</button>
+            </div>
+
+            <div class="keypad angle-keypad">
+
+                <button class="clear-entry" data-action="clear-entry">CE</button>
+                <button class="backspace" data-action="backspace">⌫</button>
+
+                <button class="digit" data-digit="7">7</button>
+                <button class="digit" data-digit="8">8</button>
+                <button class="digit" data-digit="9">9</button>
+                <button class="digit" data-digit="4">4</button>
+                <button class="digit" data-digit="5">5</button>
+                <button class="digit" data-digit="6">6</button>
+                <button class="digit" data-digit="1">1</button>
+                <button class="digit" data-digit="2">2</button>
+                <button class="digit" data-digit="3">3</button>
+                <button class="digit" data-digit="0">0</button>
+                <button class="decimal" data-action="decimal">.</button>
+            </div>
+
+            <div class="keypad scientific-keypad">
+                <button class="function operators" id="second" data-action="second">2<sup>nd</sup></button>
+                <button class="constant operators" data-action="pi">π</button>
+                <button class="constant operators" data-action="e">e</button>
+                <button class="clear operators" data-action="clear">C</button>
+                <button class="backspace operators" data-action="backspace">⌫</button>
+
+                <button class="function operators" data-action="square" id="square">x²</button>
+                <button class="function operators" data-action="2nd-square" id="2nd-square" style="display:none">x³</button> <!-- bitti -->
+                <button class="function operators" data-action="inverse">1/x</button>
+                <button class="function operators" data-action="abs">|x|</button>
+                <button class="function operators" data-action="exp">exp</button>
+                <button class="operator operators" data-action="mod">mod</button>
+
+                <button class="function operators" data-action="square-root" id="square-root">²√x</button>
+                <button class="function operators" data-action="2nd-square-root" id="2nd-square-root" style="display: none;">³√x</button> <!-- bitti -->
+                <button class="parenthesis operators" data-action="left-paren">(</button>
+                <button class="parenthesis operators" data-action="right-paren">)</button>
+                <button class="function operators" data-action="factorial">n!</button>
+                <button class="operator operators" data-action="divide">÷</button>
+
+                <button class="operator operators" data-action="power" id="power">x<sup>y</sup></button>
+                <button class="operator operators" data-action="2nd-power" id="2nd-power" style="display:none"><sup>y√</sup>x</button> <!-- bitti -->
+                <button class="digit" data-digit="7">7</button>
+                <button class="digit" data-digit="8">8</button>
+                <button class="digit" data-digit="9">9</button>
+                <button class="operator operators" data-action="multiply">×</button>
+
+                <button class="function operators" data-action="ten-power" id="ten-power">10<sup>x</sup></button>
+                <button class="function operators" data-action="2nd-ten-power" id="2nd-ten-power" style="display: none;">2<sup>x</sup></button> <!-- bitti -->
+                <button class="digit" data-digit="4">4</button>
+                <button class="digit" data-digit="5">5</button>
+                <button class="digit" data-digit="6">6</button>
+                <button class="operator operators" data-action="subtract">-</button>
+
+                <button class="function operators" data-action="log" id="log">log</button>
+                <button class="operator operators" data-action="2nd-log" id="2nd-log" style="display: none;">log<sub>y</sub>x</button> <!-- bitti -->
+                <button class="digit" data-digit="1">1</button>
+                <button class="digit" data-digit="2">2</button>
+                <button class="digit" data-digit="3">3</button>
+                <button class="operator operators" data-action="add">+</button>
+
+                <button class="function operators" data-action="ln" id="ln">ln</button>
+                <button class="function operators" data-action="2nd-ln" id="2nd-ln" style="display: none;">e<sup>x</sup></button> <!-- bitti -->
+                <button class="negate" data-action="negate">+/-</button>
+                <button class="digit" data-digit="0">0</button>
+                <button class="decimal" data-action="decimal">.</button>
+                <button class="equals operators" data-action="calculate">=</button>
+            </div>
+
+            <div class="date-calculator">
+                <div class="date-calc-section">
+                    <h3>İki Tarih Arasındaki Fark</h3>
+                    <div class="date-inputs">
+                        <input type="date" id="start-date" class="date-input">
+                        <input type="date" id="end-date" class="date-input">
+                    </div>
+                    <button id="calculate-date-diff" class="date-calc-button">Fark Hesapla</button>
+                    <div id="date-diff-result" class="date-result"></div>
+                </div>
+
+                <div class="date-calc-section">
+                    <h3>Tarihe Gün Ekle/Çıkar</h3>
+                    <div class="date-inputs">
+                        <input type="date" id="base-date" class="date-input">
+                        <input type="number" id="days-to-add" class="days-input" placeholder="Gün sayısı">
+                    </div>
+                    <div class="date-action-buttons">
+                        <button id="add-days" class="date-calc-button">Ekle</button>
+                        <button id="subtract-days" class="date-calc-button">Çıkar</button>
+                    </div>
+                    <div id="date-add-result" class="date-result"></div>
+                </div>
+
+                
+            </div>
+
+            <div class="graphic-calculator" id="graphicArea">
+                <div id="graphContainer">
+                    <canvas id="graphCanvas" width="600" height="600"></canvas>
+            
+                    <div class="axis-labels x-labels" id="xLabels"></div>
+            
+                    <div class="axis-labels y-labels" id="yLabels"></div>
+            
+                    <div id="settingsPanel" class="modal">
+                        <div class="modal-content">
+                            <div><span class="close-button" id="closeModal">&times;</span>
+                            <h3>Grafik Seçenekleri</h3></div>
+                            
+                            <div class="form-group">
+                                <label for="xMin">X Minimum</label>
+                                <input type="number" class="form-control" id="xMin" value="-10">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="xMax">X Maksimum</label>
+                                <input type="number" class="form-control" id="xMax" value="10">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="yMin">Y Minimum</label>
+                                <input type="number" class="form-control" id="yMin" value="-10">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="yMax">Y Maksimum</label>
+                                <input type="number" class="form-control" id="yMax" value="10">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="functionInput">Fonksiyon Girin (Örn: f(x) = sin(x))</label>
+                                <input type="text" class="form-control" id="functionInput" placeholder="f(x) = ">
+                            </div>
+                            
+                            <button class="btn btn-primary" onclick="addFunction()">Fonksiyon Ekle</button>
+                            
+                            <div class="function-list" id="functionList"></div>
+                            
+                            <div class="form-group">
+                                <label for="units">Birimler</label>
+                                <select class="form-control" id="units" onchange="updateGraph()">
+                                    <option value="radian">Radyan</option>
+                                    <option value="degree">Derece</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="lineWidth">Çizgi Kalınlığı</label>
+                                <input type="range" class="form-control-range" id="lineWidth" min="1" max="5" value="2">
+                            </div>
+                            
+                            <button class="btn btn-primary" onclick="updateGraph()">Uygula</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="programmer-calculator" id="calculatorArea">
+                <!-- Ekran -->
+                <div id="display-container">
+                    <div id="display">0</div>
+                    <!-- Taban Dönüşümleri -->
+                    <div id="number-bases">
+                        <div>HEX: <span id="hexValue">0</span></div>
+                        <div>DEC: <span id="decValue">0</span></div>
+                        <div>OCT: <span id="octValue">0</span></div>
+                        <div>BIN: <span id="binValue">0000</span></div>
+                    </div>
+                </div>
+            
+                <!-- Mod ve Giriş Tipi Seçimi -->
+                <div id="input-mode-container">
+                    <div id="mode-selector">
+                        <label for="mode">Mod:</label>
+                        <select id="mode" onchange="setMode()">
+                            <option value="hex">HEX</option>
+                            <option value="dec">DEC</option>
+                            <option value="oct">OCT</option>
+                            <option value="bin">BIN</option>
+                        </select>
+                    </div>
+                    <div id="input-mode-selector">
+                        <label for="inputMode">Giriş Modu:</label>
+                        <select id="inputMode" onchange="setInputMode()">
+                            <option value="keypad">Keypad ile</option>
+                            <option value="bit-edit">Bit Düzenleme ile</option>
+                        </select>
+                    </div>
+                </div>
+            
+                <!-- Tuşlar -->
+                <div id="buttons-container">
+                    <!-- İşlev Butonları -->
+                    <div id="function-buttons">
+                        <button onclick="shiftLeft()">«</button>
+                        <button onclick="shiftRight()">»</button>
+                        <button onclick="clearEntry()">CE</button>
+                        <button onclick="clearAll()">C</button>
+                    </div>
+            
+                    <!-- Sayı Butonları -->
+                    <div id="number-buttons">
+            
+                        <button class="hex-btn" onclick="appendNumber('A')" disabled>A</button>
+                        <button class="hex-btn" onclick="appendNumber('B')" disabled>B</button>
+                        <button class="hex-btn" onclick="appendNumber('C')" disabled>C</button>
+                        <button class="hex-btn" onclick="appendNumber('D')" disabled>D</button>
+                        <button class="hex-btn" onclick="appendNumber('E')" disabled>E</button>
+                        <button class="hex-btn" onclick="appendNumber('F')" disabled>F</button>
+            
+                        <button onclick="appendNumber(7)">7</button>
+                        <button onclick="appendNumber(8)">8</button>
+                        <button onclick="appendNumber(9)">9</button>
+                        <button onclick="appendNumber(4)">4</button>
+                        <button onclick="appendNumber(5)">5</button>
+                        <button onclick="appendNumber(6)">6</button>
+                        <button onclick="appendNumber(1)">1</button>
+                        <button onclick="appendNumber(2)">2</button>
+                        <button onclick="appendNumber(3)">3</button>
+                        <button onclick="appendNumber(0)">0</button>
+                        <button onclick="calculate()">=</button>
+                    </div>
+                </div>
+            
+                <!-- Bit Düzenleme Ekranı (Başlangıçta gizli) -->
+                <div id="bit-display" style="display: none;"></div>
+            </div>
+        </div>
+
+        
+
+        <div class="overlay" id="overlay"></div>
+    </div>
+
+    <script src="static/js/script.js"></script>
+    <script src="static/js/grafik-olusturma.js"></script>
+    <script src="static/js/programlayici.js"></script>
+</body>
+
+</html>
